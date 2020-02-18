@@ -1,0 +1,8 @@
+{
+  "name": "pizzajs-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/pizzajs/pizzajs-backend.git",
+  "author": "João Soares <jpcirqueira81@gmail.com>",
+  "license": "MIT"
+}
