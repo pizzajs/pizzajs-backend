@@ -1,11 +1,11 @@
 module.exports = {
     dialect: 'postgres',
-    host: 'localhost',
+    host: 'db',
     username: 'username',
     password: 'pizza',
     database: 'pizzajs',
     define: {
-        timestamos: true,
+        timestamps: true,
         underscored: true,
         underscoredAll: true,
     },
