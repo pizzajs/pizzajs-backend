@@ -11,13 +11,13 @@ services:
       POSTGRES_PASSWORD: pizza
     ports:
       - "5432:5432"
-
+    
   pizzajs:
     container_name: pizzajs
     build: .
     depends_on:
       - db
-    command: bash -c "yarn && yarn start && yarn sequelize db:migrate"
+    command: bash -c "yarn && yarn sequelize db:migrate && yarn start"
     ports:
       - "3333:3333"
     volumes:
