@@ -2,7 +2,8 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-      return queryInterface.createTable('igredientes', { 
+    
+      return queryInterface.createTable('bebidas', { 
         id:{
           type: Sequelize.INTEGER, 
           allowNull: false,
@@ -14,15 +15,15 @@ module.exports = {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        preco: {
-          type: Sequelize.FLOAT, 
-          allowNull: false,
-          defaultValeu: '0.0',
-        },
         quantidade:{
           type: Sequelize.INTEGER,
           allowNull: false,
           defaultValeu: '0',
+        },
+        preco: {
+          type: Sequelize.FLOAT, 
+          allowNull: false,
+          defaultValeu: '0.0',
         },
         created_at:{
           type: Sequelize.DATE,
@@ -31,13 +32,13 @@ module.exports = {
         updated_at:{
           type: Sequelize.DATE,
           allowNull: false,
-        },
+        }, 
       });
     
   },
 
   down: (queryInterface) => {
     
-      return queryInterface.dropTable('igredientes');
+      return queryInterface.dropTable('bebidas');
   }
 };
