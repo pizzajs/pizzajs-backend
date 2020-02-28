@@ -26,18 +26,31 @@ module.exports = {
           type: Sequelize.DATE,
           allowNull: false,
         },
-       /* produtos: {
-
+        user_id:{
+          type: Sequelize.INTEGER,
+          references: {
+            model: 'users',
+            key: 'id', 
+         },
         },
-        bebidas: {
-
+        bebidas_id: {
+          type: Sequelize.INTEGER,
+          references: {
+            model: 'bebidas', 
+            key: 'id', 
+          },
         },
-        id_user: {
-          
-        },*/
+        produtos_id: {
+          type: Sequelize.INTEGER,
+          references: {
+            model: 'pizzas', 
+            key: 'id', 
+         },
+        },
       });
 
   },
+  
 
   down: (queryInterface) => {
       return queryInterface.dropTable('pedidos');

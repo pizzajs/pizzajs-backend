@@ -31,9 +31,13 @@ module.exports = {
           type: Sequelize.DATE,
           allowNull: false,
         },
-        // ingredientes_extra: {
-  
-        // }'
+        ingredientes_extra_id: {
+          type: Sequelize.INTEGER,
+          references: {
+            model: 'igredientes', 
+            key: 'id', 
+          }
+        },
       });
     },
 
