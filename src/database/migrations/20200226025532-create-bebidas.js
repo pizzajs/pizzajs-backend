@@ -18,12 +18,12 @@ module.exports = {
         quantidade:{
           type: Sequelize.INTEGER,
           allowNull: false,
-          defaultValeu: '0',
+          defaultValue: '0',
         },
         preco: {
           type: Sequelize.FLOAT, 
           allowNull: false,
-          defaultValeu: '0.0',
+          defaultValue: '0.0',
         },
         created_at:{
           type: Sequelize.DATE,

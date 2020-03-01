@@ -5,25 +5,30 @@ class Pedido extends Model{
     static init(sequelize){
        super.init({
         preco: Sequelize.FLOAT, 
-        pedido_ativo: Sequelize.BOOLEAN
+        pedido_ativo: Sequelize.BOOLEAN,
+        user_id: Sequelize.INTEGER,
+        bebidas_id: Sequelize.ARRAY(Sequelize.INTEGER),
+        pizzas_id: Sequelize.ARRAY(Sequelize.INTEGER),
        },{
-           sequelize
+           sequelize,
        });
        return this;
     }
 
     static associate(models){
-        this.belongsTo(models.User,{
+        Pedido.belongsTo(models.User,{
             foreingkey: 'user_id',
             as: 'user',
         });
-        this.belongsToMany(models.Pizza,{
-            foreingKey: 'pizzas_id',
-            as: 'pizzas',
-        });
-        this.belongsToMany(models.Bebida,{
+        
+        Pedido.belongsToMany(models.Bebida,{
             foreingKey: 'bebidas_id',
             as: 'bebidas',
+        });
+
+        Pedido.belongsToMany(models.Pizza,{
+            foreingKey: 'pizzas_id',
+            as: 'pizzas',
         });
 
     }

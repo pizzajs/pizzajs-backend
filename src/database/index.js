@@ -6,9 +6,9 @@ import User from '../app/models/user';
 import Pizza from '../app/models/pizza';
 import Pedido from '../app/models/pedidos';
 import Ingrediente from '../app/models/ingrediente';
-// import Bebida from '../app/models/bebida';
+import Bebida from '../app/models/bebida';
 
-const models = [User, Pizza, Pedido, Ingrediente];
+const models = [User, Pizza, Pedido, Ingrediente, Bebida];
 
 class Database {
     constructor() {

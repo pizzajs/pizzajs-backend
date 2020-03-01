@@ -12,11 +12,11 @@ module.exports = {
         preco: {
           type: Sequelize.FLOAT, 
           allowNull: false,
-          defaultValeu: '0.0',
+          defaultValue: '0.0',
         },
         pedido_ativo: {
           type: Sequelize.BOOLEAN, 
-          defaultValeu: false,
+          defaultValue: false,
         },
         created_at:{
           type: Sequelize.DATE,
@@ -34,18 +34,24 @@ module.exports = {
          },
         },
         bebidas_id: {
-          type: Sequelize.INTEGER,
-          references: {
-            model: 'bebidas', 
-            key: 'id', 
-          },
+          type: Sequelize.ARRAY({
+            type:Sequelize.INTEGER,
+            references: {
+              model: 'bebidas', 
+              key: 'id', 
+            },
+          })
+          
         },
         pizzas_id: {
-          type: Sequelize.INTEGER,
-          references: {
-            model: 'pizzas', 
-            key: 'id', 
-         },
+          type: Sequelize.ARRAY({
+            type: Sequelize.INTEGER,
+              references: {
+              model: 'pizzas', 
+              key: 'id', 
+            },
+          }),
+          
         },
       });
 
