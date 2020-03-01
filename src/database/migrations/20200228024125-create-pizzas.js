@@ -34,7 +34,7 @@ module.exports = {
         ingredientes_extra_id: {
           type: Sequelize.INTEGER,
           references: {
-            model: 'igredientes', 
+            model: 'ingredientes', 
             key: 'id', 
           }
         },

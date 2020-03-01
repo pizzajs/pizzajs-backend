@@ -18,7 +18,7 @@ class Pizza extends Model {
     static associate(models){
         this.hasMany(models.ingrediente,{
             foreingkey: 'ingredientes_extra_id',
-            as: 'igrediente_extra',
+            as: 'ingrediente_extra',
         });
     }
 }
