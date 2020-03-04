@@ -1,6 +1,6 @@
 module.exports = {
     dialect: 'postgres',
-    host: 'localhost',
+    host: 'db',
     username: 'username',
     password: 'pizza',
     database: 'pizzajs',
