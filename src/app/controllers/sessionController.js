@@ -32,9 +32,6 @@ class SessionController {
             }),
         });
     }
-    update(req, res){
-        return res.json({id: req.userId});
-    }
 }
 
 export default new SessionController();
