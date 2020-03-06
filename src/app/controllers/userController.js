@@ -9,11 +9,14 @@ class UserController {
         }
 
         const user = await User.create(req.body);
+        User.u
 
         return res.json(user);
     }
     async update(req, res) {
-        res.json(req.UserId);
+
+        
+        return res.json({userID: req.userId});
     }
 }
 export default new UserController();
