@@ -13,10 +13,39 @@ class UserController {
 
         return res.json(user);
     }
+    
     async update(req, res) {
+        const { email, senhaAntiga } = req.body;
 
+        const user = await User.findByPk(req.userId);
+
+        // findByPk busca o id do usuario logado e coloca na constante user os dados do usuario.
         
-        return res.json({userID: req.userId});
+        if(email !== user.email){
+            // se diferente pode modificar o email
+            const userExists = await User.findOne({where: { email }});
+            if(userExists){
+                return res.status(400).json({ error: 'Novo email não pode ser igual o antigo!'});
+            }
+        }
+
+        // se a senha for verificada e não passar na verificação entra no if
+        if(senhaAntiga && !(await user.checkSenha(senhaAntiga))) {
+            
+            return res.status(401).json({ error: 'senha antiga incorreta'});
+
+        }
+
+
+        const {id , nome, admin } = await user.update(req.body);
+        
+        return res.json({
+            id,
+            nome,
+            email,
+            admin,
+        });
     }
 }
+
 export default new UserController();
