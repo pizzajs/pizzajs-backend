@@ -19,7 +19,7 @@ class UserController {
 
         const user = await User.findByPk(req.userId);
 
-        // findByPk busca o id do usuario logado e coloca na constante user os dados do usuario.
+        // findByPk esta buscando o id do usuario logado e coloca na constante user os dados do usuario.
         
         if(email !== user.email){
             // se diferente pode modificar o email
