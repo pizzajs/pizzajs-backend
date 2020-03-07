@@ -32,11 +32,13 @@ module.exports = {
           allowNull: false,
         },
         ingredientes_extra_id: {
-          type: Sequelize.INTEGER,
-          references: {
-            model: 'ingredientes', 
-            key: 'id', 
-          }
+          type: Sequelize.ARRAY({
+            type:Sequelize.INTEGER,
+            references: {
+              model: 'ingredientes', 
+              key: 'id', 
+            },
+          })
         },
       });
     },

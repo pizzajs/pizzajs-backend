@@ -22,7 +22,8 @@ routes.put('/users', UserController.update);
 routes.post('/pedidos', PedidoController.store);
 routes.put('/pedidos/:id', PedidoController.update);
 
-routes.post('/pizzas', PizzaController.store);
+routes.post('/pizzas/:pedidoId', PizzaController.store);
+routes.put('/pizzas/:pedidoId/:pizzaId', PizzaController.update);
 
 routes.post('/bebidas', BebidaController.store);
 
