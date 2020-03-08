@@ -7,7 +7,7 @@ class Pizza extends Model {
                 sabor: Sequelize.STRING,
                 preco: Sequelize.FLOAT,
                 ingredientes_padrao: Sequelize.ARRAY(Sequelize.STRING),
-                ingredient_extra: Sequelize.ARRAY(Sequelize.INTEGER) ,
+                ingredientes_extra_id: Sequelize.ARRAY(Sequelize.INTEGER) ,
             },
             {
                 sequelize,

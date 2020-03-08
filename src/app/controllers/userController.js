@@ -9,8 +9,6 @@ class UserController {
         }
 
         const user = await User.create(req.body);
-        User.u
-
         return res.json(user);
     }
     
@@ -33,10 +31,7 @@ class UserController {
         if(senhaAntiga && !(await user.checkSenha(senhaAntiga))) {
             
             return res.status(401).json({ error: 'senha antiga incorreta'});
-
         }
-
-
         const {id , nome, admin } = await user.update(req.body);
         
         return res.json({

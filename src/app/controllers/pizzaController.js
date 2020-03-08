@@ -3,23 +3,24 @@ import Pedido from '../models/pedidos';
 
 class PizzaController {
     async store(req, res){
-        const {pedidoId} = req.params;
+        // const {pedidoId} = req.params;
 
-        const pedido = Pedido.findOne({where: {id: pedidoId}});
+        // let pedido = Pedido.findOne(pedidoId);
 
-        if(!pedido){
-            return res.status(401).json({erro: "pedido não encontrado"});    
-        }
+        // if(!pedido){
+        //     return res.status(401).json({erro: "pedido não encontrado"});    
+        // }
 
         //fazer verificação dos se os ingredientes extras existem
         const pizza = await Pizza.create(req.body);
-        return res.json(pizza);
+        
+        return res.json(pizza.id);
     }
     
     async update(req, res){
         const {pedidoId, pizzaId} = req.params;
 
-        const pedido = Pedido.findOne({where: {id: pedidoId}});
+        const pedido = await Pedido.findOne( {where: {id: pedidoId}});
 
         if(!pedido){
             return res.status(401).json({erro: "pedido não encontrado"});    

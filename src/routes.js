@@ -28,6 +28,7 @@ routes.put('/pizzas/:pedidoId/:pizzaId', PizzaController.update);
 routes.post('/bebidas', BebidaController.store);
 
 routes.post('/ingredientes', IngredienteController.store);
+routes.put('/ingredientes/:id', IngredienteController.update);
 
 
 export default routes;
