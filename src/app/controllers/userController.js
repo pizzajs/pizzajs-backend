@@ -1,7 +1,23 @@
+import * as Yup from 'yup';
 import User from '../models/user';
 
 class UserController {
     async store(req, res) {
+        const schema = Yup.object().shape({
+                nome: Yup.string().required(),
+                email: Yup.string()
+                .email()
+                .required(),
+                senha: Yup.string()
+                .required()
+                .min(8),
+                endereco: Yup.string().required(),
+                telefone: Yup.string().min(11).max(11).required(),
+            });
+
+        if(!(await schema.isValid(req.body))){
+            return res.status(400).json({ error: 'os campos inseridos não são validos'})
+        }
         const userExists = await User.findOne({ where: {email: req.body.email }});
 
         if(userExists){
@@ -13,6 +29,31 @@ class UserController {
     }
     
     async update(req, res) {
+        const schema = Yup.object().shape({
+            nome: Yup.string(),
+            email: Yup.string()
+            .email(),
+            telefone: Yup.string()
+            .min(11)
+            .max(11),
+            endereco: Yup.string(),
+            senhaAntiga: Yup.string(),
+            senha: Yup.string()
+            .min(8)
+            .when('senhaAntiga',(senhaAntiga, field) =>
+                senhaAntiga ? field.required() : field
+            ),
+            confirmarSenha: Yup.string()
+            .min(8)
+            .when('senha',(senha, field) =>
+                senha ? field.required().oneOff([Yup.ref('senha')]) : field
+            ),
+        });
+        
+        if(!(await schema.isValid(req.body))){
+            return res.status(400).json({ error: 'os campos inseridos não são validos'})
+        }
+        
         const { email, senhaAntiga } = req.body;
 
         const user = await User.findByPk(req.userId);

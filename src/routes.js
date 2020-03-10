@@ -15,7 +15,7 @@ routes.post('/users', UserController.store);
 
 routes.post('/sessions', SessionController.store );
 
-routes.use(authMiddleware);
+
 
 routes.put('/users', UserController.update);
 
@@ -29,7 +29,7 @@ routes.post('/bebidas', BebidaController.store);
 
 routes.post('/ingredientes', IngredienteController.store);
 routes.put('/ingredientes/:id', IngredienteController.update);
-
+routes.use(authMiddleware);
 
 export default routes;
 
