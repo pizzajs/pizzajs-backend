@@ -1,10 +1,20 @@
+import * as Yup from 'yup';
 import Pedido from '../models/pedidos';
 import User from '../models/user';
 
 class PedidoController {
 
     async store(req, res){
+        const schema = Yup.object().shape({
+            preco: Yup.number().required(), 
+            pedido_ativo: Yup.boolean().required(),
+            bebidas_id: Yup.array().of(Yup.number().integer()),
+            pizzas_id: Yup.array().of(Yup.number().integer()),
+        });
 
+        if (!(await schema.isValid(req.body))){
+            return res.status(400).json({ error: 'os campos inseridos não são validos'});
+        }
         // acha o usuario com o id da sessao
         const user = User.findOne({where: {id: req.userId}});
 

@@ -1,17 +1,24 @@
+import * as Yup from 'yup';
+
 import Pizza from '../models/pizza';
 import Pedido from '../models/pedidos';
 
 class PizzaController {
     async store(req, res){
-        // const {pedidoId} = req.params;
+        const schema = Yup.object().shape({
+            sabor: Yup.string()
+            .required(),
+            preco: Yup.number()
+            .required(),
+            ingredientes_padrao: Yup.array().of(Yup.string())
+            .required(),
+            ingredientes_extra_id: Yup.array().of(Yup.number().integer()),   
+        });
 
-        // let pedido = Pedido.findOne(pedidoId);
+        if(!(await schema.isValid(req.body))){
+            return res.status(400).json({ error: 'os campos inseridos não são validos'})
+        }
 
-        // if(!pedido){
-        //     return res.status(401).json({erro: "pedido não encontrado"});    
-        // }
-
-        //fazer verificação dos se os ingredientes extras existem
         const pizza = await Pizza.create(req.body);
         
         return res.json(pizza.id);
@@ -19,6 +26,17 @@ class PizzaController {
     
     async update(req, res){
         const {pedidoId, pizzaId} = req.params;
+
+        const schema = Yup.object().shape({
+            sabor: Yup.string(),
+            preco: Yup.number(),
+            ingredientes_padrao: Yup.array.of(Yup.integer()),
+            ingredientes_extra_id: Yup.array.of(Yup.integer()),   
+        });
+
+        if(!(await schema.isValid(req.body))){
+            return res.status(400).json({ error: 'os campos inseridos não são validos'})
+        }
 
         const pedido = await Pedido.findOne( {where: {id: pedidoId}});
 
