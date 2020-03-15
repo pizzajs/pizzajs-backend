@@ -82,6 +82,36 @@ class UserController {
             admin,
         });
     }
+
+    async index(req, res) {
+        const userId = req.userId;
+        const user = await User.findOne({where: {id: userId},attributes:['id',
+            'nome',
+            'email',
+            'telefone',
+            'endereco',
+            'admin'
+            ],
+        });
+
+        // se o usuário for admin ele pula o if
+        if(user && !(user.admin === true)){
+
+            return res.json(user);
+        }
+
+        const users = await User.findAll({attributes:[
+            'id',
+            'nome',
+            'email',
+            'telefone',
+            'endereco',
+            'admin',
+            ],
+        });
+
+        return res.json(users);
+    }
 }
 
 export default new UserController();

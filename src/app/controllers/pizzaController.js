@@ -59,6 +59,20 @@ class PizzaController {
         await pizza.update(req.body);
         return res.json(pizza);
     }
+
+    async index(req, res) {
+
+        const pizzas = await Pizza.findAll({attributes:[
+            'id',
+            'sabor',
+            'preco',
+            'ingredientes_padrao',
+            'ingredientes_extra_id',
+            ],
+        });
+
+        return res.json(pizzas);
+    }
 }
 
 export default new PizzaController();

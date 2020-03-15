@@ -51,6 +51,18 @@ class BebidaController {
         await bebida.update(req.body);
         return res.json(bebida);
     }
+    async index(req, res){
+        //Listar todas as bebidas
+        const bebidas = await Bebida.findAll({attributes:[
+            'id',
+            'nome',
+            'preco',
+            'quantidade'
+            ],
+        });
+
+        return res.json(bebidas);
+    }
 }
 
 export default new BebidaController();

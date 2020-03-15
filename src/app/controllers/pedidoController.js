@@ -53,6 +53,36 @@ class PedidoController {
     
         return res.json(pedido);
     }
+    async index(req, res){
+        const id_pedido = req.params.pedidoId;
+        if(id_pedido){
+            const pedidos_do_usuario = await Pedido.findOne({where:{id: id_pedido}, 
+                attributes:[
+                    'preco', 
+                    'pedido_ativo',
+                    'user_id',
+                    'bebidas_id',
+                    'pizzas_id',
+                ] 
+            });
+            return res.json(pedidos_do_usuario);
+        }
+        const userId = req.userId;
+         //Listar todos o pedidos do cliente
+         const todos_pedidos_cliente = await Pedido.findAll({
+             where:{
+                    user_id: userId
+                },
+                attributes:[
+                    'preco', 
+                    'pedido_ativo',
+                    'user_id',
+                    'bebidas_id',
+                    'pizzas_id',],
+            })
+
+        return res.json(todos_pedidos_cliente);
+    }
 }
 
 export default new PedidoController();

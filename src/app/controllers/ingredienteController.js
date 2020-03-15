@@ -29,6 +29,7 @@ class IngredienteController {
         const ingrediente = await Ingrediente.create(req.body);
         return res.json(ingrediente);
     }
+
     async update(req, res){
         const schema = Yup.object().shape({
             nome: Yup.string(),
@@ -55,6 +56,17 @@ class IngredienteController {
         return res.json(ingrediente);
     }
 
+    async index(req, res) {
+
+        const ingredientes = await Ingrediente.findAll({attributes:[
+            'id',
+            'nome',
+            'quantidade',
+            ],
+        });
+
+        return res.json(ingredientes);
+    }
 }
 
 export default new IngredienteController();
