@@ -35,7 +35,7 @@ class PedidoController {
     async update(req, res){
         const pedidoId = req.params.id
 
-        let pedido = await Pedido.findByPk(pedidoId);;
+        let pedido = await Pedido.findByPk(pedidoId);
 
         if(!pedido){
             return res.status(401).json({erro: "pedido não encontrado."});
@@ -82,6 +82,25 @@ class PedidoController {
             })
 
         return res.json(todos_pedidos_cliente);
+    }
+    async cancelar(req, res){
+        const userId = req.userId;
+        const user = await User.findOne({where:{id:userId}});
+        
+        if(!user){
+            return res.status(401).json({erro: 'usuário não encontrado'});
+        }
+
+        const pedidoId = req.params.pedidoId;
+        let pedido = await Pedido.findByPk(pedidoId);
+        console.log(pedido)
+        if(pedido && !(pedido.pedido_ativo==true)){
+            return res.json({erro: 'Pedido não existe ou está inativo'})
+        }
+        
+        await pedido.update({pedido_ativo: false});
+        return res.json({mensagem: 'pedido cancelado com sucesso'});
+
     }
 }
 
