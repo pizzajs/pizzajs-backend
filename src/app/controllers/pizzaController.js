@@ -73,6 +73,24 @@ class PizzaController {
 
         return res.json(pizzas);
     }
+
+    async delete(req, res){
+
+        const pizzaID = req.params.pizzaId;
+        const pizza = await Pizza.findOne({where:{id: pizzaID}});
+
+        if(!pizza){
+            return res.json({erro: 'pizza não encontrada'});
+        }
+
+        try{
+            await Pizza.destroy({where:{id:pizzaID}});
+            return res.json({mensagem: 'pizza apagado com sucesso!'});
+        }catch(err){
+            return res.status(400).json({erro:'não foi possivel deletar'});
+        }
+       
+    } 
 }
 
 export default new PizzaController();

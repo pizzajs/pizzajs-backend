@@ -63,6 +63,30 @@ class BebidaController {
 
         return res.json(bebidas);
     }
+    
+    async delete(req, res){
+        const userId = req.userId;
+        const user = await User.findOne({where:{id: userId}});
+
+        if(user && !(user.admin==true)){
+            return res.status(401).json({erro: 'Usuário não tem permissão!'});
+        }
+
+        const bebidaId = req.params.bebidaId;
+        const bebida = await Bebida.findOne({where:{id: bebidaId}});
+
+        if(!bebida){
+            return res.json({erro: 'bebida não encontrada'});
+        }
+
+        try{
+            await Bebida.destroy({where:{id:bebidaId}});
+            return res.json({mensagem: 'bebida apagada com sucesso!'});
+        }catch(err){
+            return res.status(400).json({erro:'não foi possivel deletar'});
+        }
+       
+    }
 }
 
 export default new BebidaController();

@@ -67,6 +67,30 @@ class IngredienteController {
 
         return res.json(ingredientes);
     }
+
+    async delete(req, res){
+        const userId = req.userId;
+        const user = await User.findOne({where:{id: userId}});
+
+        if(user && !(user.admin==true)){
+            return res.status(401).json({erro: 'Usuário não tem permissão!'});
+        }
+
+        const ingredienteID = req.params.ingredienteId;
+        const ingrediente = await Ingrediente.findOne({where:{id: ingredienteID}});
+
+        if(!ingrediente){
+            return res.json({erro: 'ingrediente não encontrada'});
+        }
+
+        try{
+            await Ingrediente.destroy({where:{id:ingredienteID}});
+            return res.json({mensagem: 'ingrediente apagado com sucesso!'});
+        }catch(err){
+            return res.status(400).json({erro:'não foi possivel deletar'});
+        }
+       
+    }  
 }
 
 export default new IngredienteController();
