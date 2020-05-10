@@ -1,6 +1,9 @@
 import * as Yup from 'yup';
 import Pedido from '../models/pedidos';
 import User from '../models/user';
+import Pizza from '../models/pizza';
+import Bebida from '../models/bebida';
+import Ingrediente from '../models/ingrediente';
 
 class PedidoController {
 
@@ -53,6 +56,55 @@ class PedidoController {
     
         return res.json(pedido);
     }
+    async getAll(req,res){
+        try {
+            const todos_pedidos = await Pedido.findAll({
+                where: {pedido_ativo: true}
+                });
+        
+                //transformando tudo pra json 
+                let aux = JSON.parse(JSON.stringify(todos_pedidos));
+
+                for(var i in aux){
+                const {pizzas_id, bebidas_id, ingredientes_extra_id} = aux[i];
+                
+                //buscando dados das pizzas
+                if(pizzas_id != []){
+                    const pizzas_result = await Pizza.findAll({ where: {id: pizzas_id }});
+                    aux[i].pizzas =  JSON.parse(JSON.stringify(pizzas_result));
+                    
+                    for(var x in aux[i].pizzas){
+                        //buscando informações dos ingredientes extras
+                        if(aux[i].pizzas[x].ingredientes_extra_id != []){
+                            const ingredientes_result = await Ingrediente.findAll({where:{id:aux[i].pizzas[x].ingredientes_extra_id}});
+                            aux[i].ingredientes_extra =  JSON.parse(JSON.stringify(ingredientes_result));
+                        }
+                        else{
+                            aux[i].ingredientes_extra = [];
+                        }
+                    }
+                }
+                else{
+                    aux[i].pizzas = [];
+                }
+                    
+                    //buscando dados das bebidas
+                if(bebidas_id != []){
+                    const bebidas_result = await Bebida.findAll({where:{id:bebidas_id}});
+                    //   console.log(Tpizzas);
+                    aux[i].bebidas =  JSON.parse(JSON.stringify(bebidas_result));
+                }
+                else{
+                    aux[i].bebidas = [];
+                }
+            }
+            return res.send(aux);
+            
+        } catch (error) {
+            return res.json({erro:"Erro ao buscar dados"}).status(500);
+        }
+       
+    }
     async index(req, res){
         const id_pedido = req.params.pedidoId;
         if(id_pedido){
@@ -80,7 +132,7 @@ class PedidoController {
                     'bebidas_id',
                     'pizzas_id',],
             })
-
+            console.log('////////////////////');
         return res.json(todos_pedidos_cliente);
     }
     async cancelar(req, res){

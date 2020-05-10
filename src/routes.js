@@ -24,7 +24,9 @@ routes.get('/users', UserController.index);
 //rotas pedidos
 routes.post('/pedidos', PedidoController.store);
 routes.put('/pedidos/:id', PedidoController.update);
+routes.get('/pedidos/todos',PedidoController.getAll);
 routes.get('/pedidos/:id',PedidoController.index);
+routes.get('/pedidos/todos',PedidoController.getAll);
 routes.put('/pedidos/cancelar/:pedidoId',PedidoController.cancelar);
 
 // rotas pizza
