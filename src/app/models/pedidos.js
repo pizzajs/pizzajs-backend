@@ -6,6 +6,7 @@ class Pedido extends Model{
        super.init({
         preco: Sequelize.FLOAT, 
         pedido_ativo: Sequelize.BOOLEAN,
+        pizzas_customizadas: Sequelize.ARRAY(Sequelize.ARRAY(Sequelize.INTEGER)),
         user_id: Sequelize.INTEGER,
         bebidas_id: Sequelize.ARRAY(Sequelize.INTEGER),
         pizzas_id: Sequelize.ARRAY(Sequelize.INTEGER),
