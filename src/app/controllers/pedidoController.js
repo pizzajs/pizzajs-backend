@@ -66,8 +66,29 @@ class PedidoController {
                 let aux = JSON.parse(JSON.stringify(todos_pedidos));
 
                 for(var i in aux){
-                const {pizzas_id, bebidas_id, ingredientes_extra_id} = aux[i];
-                
+                const {pizzas_id, bebidas_id, ingredientes_extra_id,pizzas_customizadas} = aux[i];
+
+                const usuario_pedido = await User.findOne({where:{id: aux[i].user_id}, 
+                    attributes:[
+                        'nome', 
+                        'endereco',
+                        'telefone',
+                        'email'
+                    ] 
+                });
+                aux[i].usuario = usuario_pedido;
+
+
+                if(pizzas_customizadas!= []){
+                    
+                    let customizada=[];
+                    for(var j in pizzas_customizadas){
+            
+                        const ingredientes = await Ingrediente.findAll({where: {id:pizzas_customizadas[j]}});
+                        customizada.push(JSON.parse(JSON.stringify(ingredientes)));
+                    }
+                    aux[i].customizadas = JSON.parse(JSON.stringify(customizada));
+                }
                 //buscando dados das pizzas
                 if(pizzas_id != []){
                     const pizzas_result = await Pizza.findAll({ where: {id: pizzas_id }});
@@ -98,6 +119,7 @@ class PedidoController {
                     aux[i].bebidas = [];
                 }
             }
+            
             return res.send(aux);
             
         } catch (error) {
