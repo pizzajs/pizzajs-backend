@@ -14,6 +14,11 @@ module.exports = {
           type: Sequelize.STRING,
           allowNull: false,
         },
+        tipo: {
+          type: Sequelize.STRING(1),
+          allowNull: false,
+          defaultValue: 'R',
+        },
         preco: {
           type: Sequelize.FLOAT, 
           allowNull: false,

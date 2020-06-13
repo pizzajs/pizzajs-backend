@@ -6,6 +6,7 @@ class Ingrediente extends Model {
             {
                 nome: Sequelize.STRING,
                 preco: Sequelize.FLOAT,
+                tipo: Sequelize.STRING(1),
                 quantidade: Sequelize.INTEGER,
                 
             },

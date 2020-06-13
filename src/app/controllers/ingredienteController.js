@@ -8,6 +8,7 @@ class IngredienteController {
         const schema = Yup.object().shape({
             nome: Yup.string()
             .required(),
+            tipo: Yup.string().length(1),
             preco: Yup.number()
             .required(),
             quantidade: Yup.number()
@@ -26,6 +27,7 @@ class IngredienteController {
             return res.status(401).json({erro: "usuário não encontrado ou não tem permissão!"});
         }
 
+        req.body.tipo = req.body.tipo.toUpperCase();
         const ingrediente = await Ingrediente.create(req.body);
         return res.json(ingrediente);
     }
@@ -33,6 +35,7 @@ class IngredienteController {
     async update(req, res){
         const schema = Yup.object().shape({
             nome: Yup.string(),
+            tipo: Yup.string().length(1),
             preco: Yup.number(),
             quantidade: Yup.number()
             .integer(),
