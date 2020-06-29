@@ -64,6 +64,8 @@ class IngredienteController {
         const ingredientes = await Ingrediente.findAll({attributes:[
             'id',
             'nome',
+            'tipo',
+            'preco',
             'quantidade',
             ],
         });
